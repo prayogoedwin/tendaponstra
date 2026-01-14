@@ -39,33 +39,34 @@
                     <table class="table table-striped" id="table-custom">
                         <thead>
                             <tr>
-                                <th>Device ID</th>
-                                <th>Device Name</th>
-                                <th>Device Password</th>
-                                <th>URL Stream</th>
+                                <th>Nama Device</th>
+                                <th>Lat</th>
+                                <th>Lng</th>
+                                <th>Batt</th>
+                                <th>Obj Dist</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data as $item)
                                 <tr>
-                                    <td>{{ $item->device_id }}</td>
-                                    <td>{{ $item->device_name }}</td>
-                                    <td>{{ $item->device_password }}</td>
-                                    <td>{{ $item->url_stream }}</td>
+                                    <td>{{ ucwords($item->device->device_name) }}</td>
+                                    <td>{{ $item->lat }}</td>
+                                    <td>{{ $item->lng }}</td>
+                                    <td>{{ $item->batt }}</td>
+                                    <td>{{ $item->obj_dist }}</td>
                                     <td>
                                         <button class="btn btn-primary btn-sm editRole" data-id="{{ $item->id }}"
-                                            data-device-name="{{ $item->device_name }}"
-                                            data-device-id="{{ $item->device_id }}"
-                                            data-device-password="{{ $item->device_password }}"
-                                            data-url-stream="{{ $item->url_stream }}">
+                                            data-name="{{ $item->device_id }}" data-lat="{{ $item->lat }}"
+                                            data-lng="{{ $item->lng }}" data-batt="{{ $item->batt }}"
+                                            data-obj-dist="{{ $item->obj_dist }}">
                                             Edit
                                         </button>
+
                                         <button class="btn btn-danger btn-sm deleteRole" data-id="{{ $item->id }}"
-                                            data-device-name="{{ $item->device_name }}"
-                                            data-device-id="{{ $item->device_id }}"
-                                            data-device-password="{{ $item->device_password }}"
-                                            data-url-stream="{{ $item->url_stream }}">
+                                            data-name="{{ $item->device_id }}" data-lat="{{ $item->lat }}"
+                                            data-lng="{{ $item->lng }}" data-batt="{{ $item->batt }}"
+                                            data-obj-dist="{{ $item->obj_dist }}">
                                             Delete
                                         </button>
                                     </td>
@@ -91,23 +92,33 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label>Nama Device</label>
-                            <input type="text" name="device_name" class="form-control">
+                            <label>Device</label>
+                            <select name="device_id" class="form-select" id="">
+                                <option value="" disabled selected>-- Select Device --</option>
+                                @foreach ($devices as $item)
+                                    <option value="{{ $item->id }}">{{ $item->device_name }}</option>
+                                @endforeach
+                            </select>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="mb-3">
-                            <label>Device ID</label>
-                            <input type="text" name="device_id" class="form-control">
+                            <label>Latitude</label>
+                            <input type="text" name="lat" class="form-control">
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="mb-3">
-                            <label>Device Password</label>
-                            <input type="text" name="device_password" class="form-control">
+                            <label>Longitude</label>
+                            <input type="text" name="lng" class="form-control">
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="mb-3">
-                            <label>URL Stream</label>
-                            <input type="text" name="url_stream" class="form-control">
+                            <label>Batt</label>
+                            <input type="text" name="batt" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Obj Dist</label>
+                            <input type="text" name="obj_dist" class="form-control">
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -142,23 +153,33 @@
 
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label>Nama Device</label>
-                            <input type="text" name="device_name" class="form-control">
+                            <label>Device</label>
+                            <select name="device_id" class="form-select" id="">
+                                <option value="" disabled selected>-- Select Device --</option>
+                                @foreach ($devices as $item)
+                                    <option value="{{ $item->id }}">{{ $item->device_name }}</option>
+                                @endforeach
+                            </select>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="mb-3">
-                            <label>Device ID</label>
-                            <input type="text" name="device_id" class="form-control">
+                            <label>Latitude</label>
+                            <input type="text" name="lat" class="form-control">
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="mb-3">
-                            <label>Device Password</label>
-                            <input type="text" name="device_password" class="form-control">
+                            <label>Longitude</label>
+                            <input type="text" name="lng" class="form-control">
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="mb-3">
-                            <label>URL Stream</label>
-                            <input type="text" name="url_stream" class="form-control">
+                            <label>Batt</label>
+                            <input type="text" name="batt" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Obj Dist</label>
+                            <input type="text" name="obj_dist" class="form-control">
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -189,8 +210,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <p>Yakin ingin menghapus device
-                            <strong id="deleteRoleName"></strong>?
+                        <p>Yakin ingin menghapus?
                         </p>
                     </div>
 
@@ -214,7 +234,7 @@
                 let form = $(this);
 
                 $.ajax({
-                    url: "{{ route('device.store') }}",
+                    url: "{{ route('tracking.store') }}",
                     type: "POST",
                     data: form.serialize(),
                     success: function(res) {
@@ -242,19 +262,21 @@
             // ===== EDIT =====
             $('.editRole').on('click', function() {
                 let id = $(this).data('id');
-                let deviceName = $(this).data('deviceName');
-                let deviceId = $(this).data('deviceId');
-                let devicePassword = $(this).data('devicePassword');
-                let urlStream = $(this).data('urlStream');
+                let name = $(this).data('name');
+                let lat = $(this).data('lat');
+                let lng = $(this).data('lng');
+                let batt = $(this).data('batt');
+                let obj_dist = $(this).data('objDist');
 
                 $('#editRoleForm')[0].reset();
                 $('#editRoleForm input[name=id]').val(id);
-                $('#editRoleForm input[name=device_name]').val(deviceName);
-                $('#editRoleForm input[name=device_id]').val(deviceId);
-                $('#editRoleForm input[name=device_password]').val(devicePassword);
-                $('#editRoleForm input[name=url_stream]').val(urlStream);
-
+                $('select[name=device_id]').val($(this).data('name'));
+                $('#editRoleForm input[name=lat]').val(lat);
+                $('#editRoleForm input[name=lng]').val(lng);
+                $('#editRoleForm input[name=batt]').val(batt);
+                $('#editRoleForm input[name=obj_dist]').val(obj_dist);
                 $('.form-control').removeClass('is-invalid');
+
                 $('#editRoleModal').modal('show');
             });
 
@@ -264,7 +286,7 @@
                 let id = $(this).find('input[name=id]').val();
 
                 $.ajax({
-                    url: `/dashboard/device/${id}`,
+                    url: `/dashboard/tracking/${id}`,
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function(res) {
@@ -291,10 +313,10 @@
             // ===== DELETE =====
             $('.deleteRole').on('click', function() {
                 let id = $(this).data('id');
-                let deviceName = $(this).data('deviceName');
+                let name = $(this).data('name');
 
                 $('#deleteRoleForm input[name=id]').val(id);
-                $('#deleteRoleName').text(deviceName);
+                $('#deleteRoleName').text(name);
 
                 $('#deleteRoleModal').modal('show');
             });
@@ -305,7 +327,7 @@
                 let id = $(this).find('input[name=id]').val();
 
                 $.ajax({
-                    url: `/dashboard/device/${id}`,
+                    url: `/dashboard/tracking/${id}`,
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function() {

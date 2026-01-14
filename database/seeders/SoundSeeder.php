@@ -12,7 +12,7 @@ class SoundSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = ['maju', 'awas'];
+        $data = ['awas', 'belok kanan', 'belok kiri', 'kanan', 'ke kanan', 'ke kiri', 'kiri', 'maju ke depan', 'maju', 'mundur ke belakang', 'mundur', 'stop'];
 
         foreach ($data as $key => $value) {
             \App\Models\Sound::create([

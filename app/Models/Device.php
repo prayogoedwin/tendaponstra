@@ -9,4 +9,9 @@ class Device extends Model
 {
     use SoftDeletes;
     protected $guarded = ['id'];
+
+    public function tracking_devices()
+    {
+        return $this->hasMany(TrackingDevice::class);
+    }
 }

@@ -1,0 +1,62 @@
+[
+    {
+        "id": 3,
+        "name": "awas",
+        "path_file": "sound\/awas.mp3"
+    },
+    {
+        "id": 4,
+        "name": "belok kanan",
+        "path_file": "sound\/belok kanan.mp3"
+    },
+    {
+        "id": 5,
+        "name": "belok kiri",
+        "path_file": "sound\/belok kiri.mp3"
+    },
+    {
+        "id": 6,
+        "name": "kanan",
+        "path_file": "sound\/kanan.mp3"
+    },
+    {
+        "id": 7,
+        "name": "ke kanan",
+        "path_file": "sound\/ke kanan.mp3"
+    },
+    {
+        "id": 8,
+        "name": "ke kiri",
+        "path_file": "sound\/ke kiri.mp3"
+    },
+    {
+        "id": 9,
+        "name": "kiri",
+        "path_file": "sound\/kiri.mp3"
+    },
+    {
+        "id": 10,
+        "name": "maju ke depan",
+        "path_file": "sound\/maju ke depan.mp3"
+    },
+    {
+        "id": 11,
+        "name": "maju",
+        "path_file": "sound\/maju.mp3"
+    },
+    {
+        "id": 12,
+        "name": "mundur ke belakang",
+        "path_file": "sound\/mundur ke belakang.mp3"
+    },
+    {
+        "id": 13,
+        "name": "mundur",
+        "path_file": "sound\/mundur.mp3"
+    },
+    {
+        "id": 14,
+        "name": "stop",
+        "path_file": "sound\/stop.mp3"
+    }
+]

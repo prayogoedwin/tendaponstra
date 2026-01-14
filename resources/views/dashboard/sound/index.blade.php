@@ -31,8 +31,8 @@
                 <div class="card-header">
                     <div class="d-flex">
                         <h5 class="card-title">Data {{ ucwords($title) }}</h5>
-                        <a href="#" class="btn btn-primary addRole ms-auto" data-bs-toggle="modal"
-                            data-bs-target="#roleModal">Tambah {{ ucwords($title) }}</a>
+                        <a href="{{ route('sound.create') }}" class="btn btn-primary addRole ms-auto">Tambah
+                            {{ ucwords($title) }}</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -54,9 +54,10 @@
                                             data-src="{{ asset($item->path_file) }}">
                                             ▶ Play
                                         </button>
-                                        <button class="btn btn-primary btn-sm editRole">
+                                        <a href="{{ route('sound.edit', $item->id) }}"
+                                            class="btn btn-primary btn-sm editRole">
                                             Edit
-                                        </button>
+                                        </a>
 
                                         <button class="btn btn-danger btn-sm deleteRole" data-id="{{ $item->id }}"
                                             data-name="{{ $item->name }}">
@@ -104,21 +105,22 @@
 @endsection
 @push('script')
     <script>
+        let audio = new Audio();
+
+        $(document).on('click', '.playSound', function() {
+            let src = $(this).data('src');
+
+            // stop audio sebelumnya
+            audio.pause();
+            audio.currentTime = 0;
+
+            audio.src = src;
+            audio.play();
+        });
+
         $(document).ready(function() {
-            let audio = new Audio();
-
-            $('.playSound').on('click', function() {
-                let src = $(this).data('src');
-
-                // stop audio sebelumnya
-                audio.pause();
-                audio.currentTime = 0;
-
-                audio.src = src;
-                audio.play();
-            });
             // ===== DELETE =====
-            $('.deleteRole').on('click', function() {
+            $(document).on('click', '.deleteRole', function() {
                 let id = $(this).data('id');
                 let name = $(this).data('name');
 
@@ -134,7 +136,7 @@
                 let id = $(this).find('input[name=id]').val();
 
                 $.ajax({
-                    url: `/dashboard/role/${id}`,
+                    url: `/dashboard/sound/${id}`,
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function() {

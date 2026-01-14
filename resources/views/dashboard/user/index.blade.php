@@ -183,7 +183,7 @@
 
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-danger">Hapus Role</h5>
+                        <h5 class="modal-title text-danger">Hapus {{ ucwords($title) }}</h5>
                     </div>
 
                     <div class="modal-body">

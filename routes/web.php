@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\DeviceController;
 use App\Http\Controllers\Dashboard\IndexController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\SoundController;
+use App\Http\Controllers\Dashboard\TrackingDeviceController;
 use App\Http\Controllers\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,6 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::resource('role', RoleController::class);
     Route::resource('device', DeviceController::class);
     Route::resource('sound', SoundController::class);
+    Route::resource('tracking', TrackingDeviceController::class);
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });

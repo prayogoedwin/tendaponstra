@@ -81,6 +81,12 @@
                 </a>
             </li>
             <li class="sidebar-item">
+                <a href="{{ route('tracking.index') }}" class='sidebar-link'>
+                    <i class="bi bi-signpost-split"></i>
+                    <span>Tracking</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
                 <a href="#" class="sidebar-link"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bi bi-arrow-bar-right"></i>
