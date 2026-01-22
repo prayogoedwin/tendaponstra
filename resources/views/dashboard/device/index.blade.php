@@ -43,6 +43,7 @@
                                 <th>Device Name</th>
                                 <th>Device Password</th>
                                 <th>URL Stream</th>
+                                <th>Port</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -53,12 +54,19 @@
                                     <td>{{ $item->device_name }}</td>
                                     <td>{{ $item->device_password }}</td>
                                     <td>{{ $item->url_stream }}</td>
+                                    <td>{{ $item->port }}</td>
                                     <td>
                                         <button class="btn btn-primary btn-sm editRole" data-id="{{ $item->id }}"
                                             data-device-name="{{ $item->device_name }}"
                                             data-device-id="{{ $item->device_id }}"
                                             data-device-password="{{ $item->device_password }}"
-                                            data-url-stream="{{ $item->url_stream }}">
+                                            data-url-stream="{{ $item->url_stream }}" data-port="{{ $item->port }}"
+                                            data-websocket-port="{{ $item->websocket_port }}"
+                                            data-tlsmqtt-url="{{ $item->tls_mqtt_url }}"
+                                            data-tlswebsocket-url="{{ $item->tls_websocket_url }}"
+                                            data-username="{{ $item->username }}" data-password="{{ $item->password }}"
+                                            data-urlmqtt="{{ $item->url_mqtt }}" data-prefix="{{ $item->prefix_topic }}"
+                                            data-client-id="{{ $item->client_id }}">
                                             Edit
                                         </button>
                                         <button class="btn btn-danger btn-sm deleteRole" data-id="{{ $item->id }}"
@@ -110,6 +118,52 @@
                             <input type="text" name="url_stream" class="form-control">
                             <div class="invalid-feedback"></div>
                         </div>
+                        <div class="mb-3">
+                            <label>Prefix Topic</label>
+                            <input type="text" name="prefix_topic" placeholder="/tongkat1" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Client ID</label>
+                            <input type="text" name="client_id"
+                                placeholder="Masukkan sesuai dengan yang diberikan device" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Username</label>
+                            <input type="text" name="username" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <input type="text" name="password" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>PORT</label>
+                            <input type="text" name="port" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Websocket PORT</label>
+                            <input type="text" name="websocket_port" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>TLS MQTT URL</label>
+                            <input type="text" name="tls_mqtt_url" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>TLS Websocket URL</label>
+                            <input type="text" name="tls_websocket_url" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>URL</label>
+                            <input type="text" name="url_mqtt" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -159,6 +213,52 @@
                         <div class="mb-3">
                             <label>URL Stream</label>
                             <input type="text" name="url_stream" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Prefix Topic</label>
+                            <input type="text" name="prefix_topic" placeholder="/tongkat1" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Client ID</label>
+                            <input type="text" name="client_id"
+                                placeholder="Masukkan sesuai dengan yang diberikan device" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Username</label>
+                            <input type="text" name="username" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <input type="text" name="password" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>PORT</label>
+                            <input type="text" name="port" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Websocket PORT</label>
+                            <input type="text" name="websocket_port" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>TLS MQTT URL</label>
+                            <input type="text" name="tls_mqtt_url" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>TLS Websocket URL</label>
+                            <input type="text" name="tls_websocket_url" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>URL</label>
+                            <input type="text" name="url_mqtt" class="form-control">
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -246,6 +346,15 @@
                 let deviceId = $(this).data('deviceId');
                 let devicePassword = $(this).data('devicePassword');
                 let urlStream = $(this).data('urlStream');
+                let port = $(this).data('port');
+                let websocketPort = $(this).data('websocketPort');
+                let tlsmqttUrl = $(this).data('tlsmqttUrl');
+                let tlswebsocketUrl = $(this).data('tlswebsocketUrl');
+                let username = $(this).data('username');
+                let password = $(this).data('password');
+                let urlMqtt = $(this).data('urlmqtt');
+                let clientId = $(this).data('clientId');
+                let prefix = $(this).data('prefix');
 
                 $('#editRoleForm')[0].reset();
                 $('#editRoleForm input[name=id]').val(id);
@@ -253,6 +362,15 @@
                 $('#editRoleForm input[name=device_id]').val(deviceId);
                 $('#editRoleForm input[name=device_password]').val(devicePassword);
                 $('#editRoleForm input[name=url_stream]').val(urlStream);
+                $('#editRoleForm input[name=port]').val(port);
+                $('#editRoleForm input[name=websocket_port]').val(websocketPort);
+                $('#editRoleForm input[name=tls_mqtt_url]').val(tlsmqttUrl);
+                $('#editRoleForm input[name=tls_websocket_url]').val(tlswebsocketUrl);
+                $('#editRoleForm input[name=username]').val(username);
+                $('#editRoleForm input[name=password]').val(password);
+                $('#editRoleForm input[name=url_mqtt]').val(urlMqtt);
+                $('#editRoleForm input[name=client_id]').val(clientId);
+                $('#editRoleForm input[name=prefix_topic]').val(prefix);
 
                 $('.form-control').removeClass('is-invalid');
                 $('#editRoleModal').modal('show');
