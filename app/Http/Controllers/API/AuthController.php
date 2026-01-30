@@ -31,7 +31,8 @@ class AuthController extends Controller
                     'name' => $request->name,
                     'email' => $request->email,
                     'password' => Hash::make($request->email),
-                    'google_token' => $request->google_id
+                    'google_token' => $request->google_id,
+                    'token_fcm' => $request->token_fcm
                     // 'google_token' => $googleUser->token,
                     // 'google_refresh_token' => $googleUser->refreshToken,
                 ]

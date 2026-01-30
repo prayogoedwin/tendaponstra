@@ -26,6 +26,7 @@ class User extends Authenticatable
         'google_id',
         'google_token',
         'google_refresh_token',
+        'token_fcm'
     ];
 
     /**
@@ -49,5 +50,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Specifies the user's FCM token
+     *
+     * @return string|array
+     */
+    public function routeNotificationForFcm()
+    {
+        return $this->token_fcm;
     }
 }

@@ -15,5 +15,7 @@ class SoundSyncService
             public_path('suara.json'),
             $sounds->toJson(JSON_PRETTY_PRINT)
         );
+
+        return $sounds;
     }
 }
