@@ -12,7 +12,9 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/auth/google', [AuthController::class, 'redirectToGoogle']);
 Route::post('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
-
-Route::get('/get-payload', [PublicController::class, 'getDevice']);
-Route::post('get-device', [PublicController::class, 'getDevice']);
-Route::get('get-sound', [PublicController::class, 'getSound']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/get-payload', [PublicController::class, 'getDevice']);
+    Route::post('get-device', [PublicController::class, 'getDevice']);
+    Route::get('get-sound', [PublicController::class, 'getSound']);
+    Route::post('refresh-token-fcm', [AuthController::class, 'refreshTokenFcm']);
+});

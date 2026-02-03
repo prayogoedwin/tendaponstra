@@ -52,4 +52,19 @@ class AuthController extends Controller
             return $this->error($th->getMessage());
         }
     }
+
+    public function refreshTokenFcm(Request $request)
+    {
+        try {
+            $data = User::where('token_fcm', $request->token_fcm)->first();
+            if (!$data) {
+                return $this->notFound('User tidak ditemukan');
+            }
+            $data->token_fcm = $request->token_fcm;
+            $data->save();
+            return $this->ok($data, 'Berhasil mengubah token FCM');
+        } catch (\Throwable $th) {
+            return $this->error($th->getMessage());
+        }
+    }
 }
