@@ -15,6 +15,7 @@ use NotificationChannels\Fcm\FcmChannel;
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::get('auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+Route::post('login', [AuthController::class, 'login'])->name('login.action');
 
 Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('dashboard');
