@@ -37,6 +37,16 @@ class AuthController extends Controller
         return redirect()->route('dashboard')->with('success', 'Successfully logged in with Google.');
     }
 
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('dashboard')->with('success', 'Successfully logged in.');
+        } else {
+            return redirect()->back()->with('error', 'Invalid credentials.');
+        }
+    }
+
     public function logout(Request $request)
     {
         try {
