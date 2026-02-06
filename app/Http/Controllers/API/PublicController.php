@@ -95,33 +95,33 @@ class PublicController extends Controller
             // Log::info('Antares Webhook Received', $request->all());
 
             // ambil CIN
-            $cin = data_get(
-                $request->all(),
-                'm2m:sgn.m2m:nev.m2m:rep.m2m:cin'
-            );
+            // $cin = data_get(
+            //     $request->all(),
+            //     'm2m:sgn.m2m:nev.m2m:rep.m2m:cin'
+            // );
 
-            if (!$cin || !isset($cin['con'])) {
-                throw new \Exception('CIN tidak ditemukan');
-            }
+            // if (!$cin || !isset($cin['con'])) {
+            //     throw new \Exception('CIN tidak ditemukan');
+            // }
 
-            // decode con (STRING → ARRAY)
-            $payload = json_decode($cin['con'], true);
+            // // decode con (STRING → ARRAY)
+            // $payload = json_decode($cin['con'], true);
 
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                return response()->json(['success' => false, 'message' => 'Invalid payload con'], 400);
-            }
+            // if (json_last_error() !== JSON_ERROR_NONE) {
+            //     return response()->json(['success' => false, 'message' => 'Invalid payload con'], 400);
+            // }
 
-            $devEui = data_get($payload, 'devEui');
-            $lat = data_get($payload, 'data.lat');
-            $lng = data_get($payload, 'data.lng');
+            // $devEui = data_get($payload, 'devEui');
+            // $lat = data_get($payload, 'data.lat');
+            // $lng = data_get($payload, 'data.lng');
 
             // Log::info('ID dari Antares', ['devEui' => $devEui, 'lat' => $lat, 'lng' => $lng]);
 
             // $device = Device::where('device_id', $devEui)->first();
             $user = User::where('email', 'atasnama740@gmail.com')->first();
             $user->notify(new SosNotification(FcmChannel::class, 'SOS Tolong Bossssss', [
-                'lat' => $lat,
-                'lng' => $lng
+                'lat' => '7.026265',
+                'lng' => '110.418854'
             ]));
 
 
