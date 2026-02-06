@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public function device()
     {
-        return $this->hasOne(Device::class, 'user_id');
+        return $this->hasMany(Device::class, 'user_id');
     }
 
     /**

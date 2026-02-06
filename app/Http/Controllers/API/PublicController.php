@@ -92,7 +92,7 @@ class PublicController extends Controller
     public function handle(Request $request)
     {
         try {
-            Log::info('Antares Webhook Received', $request->all());
+            // Log::info('Antares Webhook Received', $request->all());
 
             // ambil CIN
             $cin = data_get(
@@ -111,18 +111,15 @@ class PublicController extends Controller
                 return response()->json(['success' => false, 'message' => 'Invalid payload con'], 400);
             }
 
-            // ambil id
-            // $id = data_get($payload, 'data.id');
-            $device_id = data_get($payload, 'data.device_id');
             $devEui = data_get($payload, 'devEui');
             $lat = data_get($payload, 'data.lat');
             $lng = data_get($payload, 'data.lng');
 
-            Log::info('ID dari Antares', ['devEui' => $devEui]);
+            // Log::info('ID dari Antares', ['devEui' => $devEui, 'lat' => $lat, 'lng' => $lng]);
 
-            $device = Device::where('device_id', $devEui)->first();
-
-            $device->user->notify(new SosNotification(FcmChannel::class, 'SOS Tolong Bossssss', [
+            // $device = Device::where('device_id', $devEui)->first();
+            $user = User::where('email', 'atasnama740@gmail.com')->first();
+            $user->notify(new SosNotification(FcmChannel::class, 'SOS Tolong Bossssss', [
                 'lat' => $lat,
                 'lng' => $lng
             ]));
