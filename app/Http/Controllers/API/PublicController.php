@@ -118,13 +118,10 @@ class PublicController extends Controller
             $lat = data_get($payload, 'data.lat');
             $lng = data_get($payload, 'data.lng');
 
-            Log::info('ID dari Antares', ['id' => $device_id]);
+            Log::info('ID dari Antares', ['devEui' => $devEui]);
 
             $device = Device::where('device_id', $devEui)->first();
 
-            if (!$device) {
-                return response()->json(['success' => false, 'message' => 'Device tidak ditemukan'], 404);
-            }
             $device->user->notify(new SosNotification(FcmChannel::class, 'SOS Tolong Bossssss', [
                 'lat' => $lat,
                 'lng' => $lng
