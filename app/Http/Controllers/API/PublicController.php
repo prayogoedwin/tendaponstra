@@ -114,12 +114,13 @@ class PublicController extends Controller
             // ambil id
             // $id = data_get($payload, 'data.id');
             $device_id = data_get($payload, 'data.device_id');
+            $devEui = data_get($payload, 'devEui');
             $lat = data_get($payload, 'data.lat');
             $lng = data_get($payload, 'data.lng');
 
             Log::info('ID dari Antares', ['id' => $device_id]);
 
-            $device = Device::where('device_id', $device_id)->first();
+            $device = Device::where('device_id', $devEui)->first();
 
             if (!$device) {
                 return response()->json(['success' => false, 'message' => 'Device tidak ditemukan'], 404);
