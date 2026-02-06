@@ -89,15 +89,47 @@ class PublicController extends Controller
     //     }
     // }
 
-    public function handle()
+    public function handle(Request $request)
     {
         try {
-            $user = User::where('email', 'atasnama740@gmail.com')->first();
-            $user->notify(new SosNotification(FcmChannel::class, 'SOS Tolong Bossssss', [
-                'lat' => '7.026265',
-                'lng' => '110.418854'
+            Log::info('Antares Webhook Received', $request->all());
+
+            // ambil CIN
+            $cin = data_get(
+                $request->all(),
+                'm2m:sgn.m2m:nev.m2m:rep.m2m:cin'
+            );
+
+            if (!$cin || !isset($cin['con'])) {
+                throw new \Exception('CIN tidak ditemukan');
+            }
+
+            // decode con (STRING → ARRAY)
+            $payload = json_decode($cin['con'], true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return response()->json(['success' => false, 'message' => 'Invalid payload con'], 400);
+            }
+
+            // ambil id
+            // $id = data_get($payload, 'data.id');
+            $device_id = data_get($payload, 'data.device_id');
+            $lat = data_get($payload, 'data.lat');
+            $lng = data_get($payload, 'data.lng');
+
+            Log::info('ID dari Antares', ['id' => $device_id]);
+
+            $device = Device::where('device_id', $device_id)->first();
+
+            if (!$device) {
+                return response()->json(['success' => false, 'message' => 'Device tidak ditemukan'], 404);
+            }
+            $device->user->notify(new SosNotification(FcmChannel::class, 'SOS Tolong Bossssss', [
+                'lat' => $lat,
+                'lng' => $lng
             ]));
-            Log::info('Antares Webhook Received');
+
+
             return response()->json([
                 'success' => true
             ], 200);
