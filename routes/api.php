@@ -18,3 +18,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('get-sound', [PublicController::class, 'getSound']);
     Route::post('refresh-token-fcm', [AuthController::class, 'refreshTokenFcm']);
 });
+Route::post('/monitor', [PublicController::class, 'handle']);
