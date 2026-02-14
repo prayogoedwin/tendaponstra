@@ -42,14 +42,14 @@
         <ul class="menu">
             <li class="sidebar-title">Menu</li>
 
-            <li class="sidebar-item active ">
+            <li class="sidebar-item ">
                 <a href="{{ route('dashboard') }}" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-            <li class="sidebar-item has-sub">
+            <li class="sidebar-item has-sub" hidden>
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-stack"></i>
                     <span>Master</span>
@@ -66,6 +66,12 @@
 
                     </li>
                 </ul>
+            </li>
+            <li class="sidebar-item">
+                <a href="{{ route('user.index') }}" class='sidebar-link'>
+                    <i class="bi bi-users"></i>
+                    <span>Users</span>
+                </a>
             </li>
             <li class="sidebar-item">
                 <a href="{{ route('device.index') }}" class='sidebar-link'>
