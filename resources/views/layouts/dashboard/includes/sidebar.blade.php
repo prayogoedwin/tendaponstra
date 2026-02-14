@@ -58,7 +58,7 @@
 
                 <ul class="submenu ">
 
-                    <li class="submenu-item">
+                    <li class="submenu-item" hidden>
                         <a href="{{ route('role.index') }}" class="submenu-link">Role</a>
                     </li>
 
