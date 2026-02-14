@@ -69,7 +69,7 @@
             </li>
             <li class="sidebar-item">
                 <a href="{{ route('user.index') }}" class='sidebar-link'>
-                    <i class="bi bi-users"></i>
+                    <i class="bi bi-person"></i>
                     <span>Users</span>
                 </a>
             </li>
