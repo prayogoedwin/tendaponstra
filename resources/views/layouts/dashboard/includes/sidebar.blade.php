@@ -74,13 +74,13 @@
                     <span>Device</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item" hidden>
                 <a href="{{ route('sound.index') }}" class='sidebar-link'>
                     <i class="bi bi-music-note"></i>
                     <span>Sound</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item" hidden>
                 <a href="{{ route('tracking.index') }}" class='sidebar-link'>
                     <i class="bi bi-signpost-split"></i>
                     <span>Tracking</span>
