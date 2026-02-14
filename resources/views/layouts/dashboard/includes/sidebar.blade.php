@@ -2,8 +2,7 @@
     <div class="sidebar-header position-relative">
         <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-                <a href="index.html"><img src="{{ asset('template') }}/compiled/svg/logo.svg" alt="Logo"
-                        srcset=""></a>
+                <a href="{{ route('dashboard') }}">Tendaponstra</a>
             </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -44,7 +43,7 @@
             <li class="sidebar-title">Menu</li>
 
             <li class="sidebar-item active ">
-                <a href="index.html" class='sidebar-link'>
+                <a href="{{ route('dashboard') }}" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
