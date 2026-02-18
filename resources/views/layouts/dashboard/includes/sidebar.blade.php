@@ -2,8 +2,7 @@
     <div class="sidebar-header position-relative">
         <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-                <a href="index.html"><img src="{{ asset('template') }}/compiled/svg/logo.svg" alt="Logo"
-                        srcset=""></a>
+                <a href="{{ route('dashboard') }}">Tendaponstra</a>
             </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -43,14 +42,14 @@
         <ul class="menu">
             <li class="sidebar-title">Menu</li>
 
-            <li class="sidebar-item active ">
-                <a href="index.html" class='sidebar-link'>
+            <li class="sidebar-item ">
+                <a href="{{ route('dashboard') }}" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-            <li class="sidebar-item has-sub">
+            <li class="sidebar-item has-sub" hidden>
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-stack"></i>
                     <span>Master</span>
@@ -58,7 +57,7 @@
 
                 <ul class="submenu ">
 
-                    <li class="submenu-item">
+                    <li class="submenu-item" hidden>
                         <a href="{{ route('role.index') }}" class="submenu-link">Role</a>
                     </li>
 
@@ -69,18 +68,24 @@
                 </ul>
             </li>
             <li class="sidebar-item">
+                <a href="{{ route('user.index') }}" class='sidebar-link'>
+                    <i class="bi bi-person"></i>
+                    <span>Users</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
                 <a href="{{ route('device.index') }}" class='sidebar-link'>
                     <i class="bi bi-phone"></i>
                     <span>Device</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item" hidden>
                 <a href="{{ route('sound.index') }}" class='sidebar-link'>
                     <i class="bi bi-music-note"></i>
                     <span>Sound</span>
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item" hidden>
                 <a href="{{ route('tracking.index') }}" class='sidebar-link'>
                     <i class="bi bi-signpost-split"></i>
                     <span>Tracking</span>
