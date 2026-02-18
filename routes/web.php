@@ -28,7 +28,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 });
 Route::get('notif', function () {
     try {
-        $user = User::where('email', 'atasnama740@gmail.com')->first();
+        $user = User::where('email', 'afira199@gmail.com')->first();
         $user->notify(new SosNotification(FcmChannel::class, 'SOS Tolong Bossssss', [
             'lat' => '7.026265',
             'lng' => '110.418854'
