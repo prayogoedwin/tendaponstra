@@ -39,5 +39,5 @@ Route::get('notif', function () {
     }
 });
 Route::get('request-delete-account', function () {
-    return view('request.blade.php');
+    return view('request');
 });
