@@ -28,7 +28,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 });
 Route::get('notif', function () {
     try {
-        $user = User::where('email', 'afira199@gmail.com')->first();
+        $user = User::where('email', 'testaja539@gmail.com')->first();
         $user->notify(new SosNotification(FcmChannel::class, 'SOS Tolong Bossssss', [
             'lat' => '7.026265',
             'lng' => '110.418854'
@@ -37,4 +37,7 @@ Route::get('notif', function () {
     } catch (\Throwable $th) {
         return response()->json(['success' => false, 'message' => $th->getMessage()]);
     }
+});
+Route::get('request-delete-account', function () {
+    return view('request.blade.php');
 });
