@@ -41,3 +41,6 @@ Route::get('notif', function () {
 Route::get('request-delete-account', function () {
     return view('request');
 });
+Route::get('kebijakan-privasi', function () {
+    return view('privacy');
+});
