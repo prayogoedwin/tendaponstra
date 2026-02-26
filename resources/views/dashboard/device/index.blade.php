@@ -56,6 +56,9 @@
                                     <td>{{ $item->url_stream }}</td>
                                     <td>{{ $item->port }}</td>
                                     <td>
+                                        <button class="btn btn-danger btn-sm sos" data-id="{{ $item->id }}">
+                                            Kirim SOS
+                                        </button>
                                         <button class="btn btn-primary btn-sm editRole" data-id="{{ $item->id }}"
                                             data-device-name="{{ $item->device_name }}"
                                             data-device-id="{{ $item->device_id }}"
@@ -274,6 +277,39 @@
         </div>
     </div>
 
+    <div class="modal fade" id="sosModal" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <form id="sosForm">
+                @csrf
+                <input type="hidden" name="id_device">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">SOS {{ ucwords($title) }}</h5>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label>Lattitude</label>
+                            <input type="text" name="lat" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Longitude</label>
+                            <input type="text" name="lng" class="form-control">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">
+                            Kirim
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     {{-- delete --}}
     <div class="modal fade" id="deleteRoleModal" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
@@ -428,6 +464,29 @@
                     data: $(this).serialize(),
                     success: function() {
                         $('#deleteRoleModal').modal('hide');
+                        location.reload();
+                    }
+                });
+            });
+
+            //  === KIRIM SOS ===
+            $('.sos').on('click', function() {
+                let id = $(this).data('id');
+                $('#sosForm input[name=id_device]').val(id);
+                $('.form-control').removeClass('is-invalid');
+                $('#sosModal').modal('show');
+            })
+
+            $('#sosForm').submit(function(e) {
+                e.preventDefault();
+                let id = $(this).find('input[name=id_device]').val();
+
+                $.ajax({
+                    url: `/dashboard/device/sos/${id}`,
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function() {
+                        $('#sosModal').modal('hide');
                         location.reload();
                     }
                 });

@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Device;
+use App\Notifications\SosNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use NotificationChannels\Fcm\FcmChannel;
 
 class DeviceController extends Controller
 {
@@ -165,6 +168,22 @@ class DeviceController extends Controller
                 'status' => false,
                 'message' => $th->getMessage()
             ]);
+        }
+    }
+
+    public function sos(Request $request, $id)
+    {
+        try {
+            $device = Device::findOrFail($id);
+            $device->user->notify(new SosNotification(FcmChannel::class, 'SOS Dari Tongkat ' . $device->device_name, [
+                'lat' => $request->lat,
+                'lng' => $request->lng
+            ]));
+            Log::info('SOS Terkirim');
+            return response()->json(['success' => true]);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(['success' => false, 'message' => $th->getMessage()]);
         }
     }
 }

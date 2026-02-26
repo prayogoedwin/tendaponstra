@@ -24,6 +24,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::resource('device', DeviceController::class);
     Route::resource('sound', SoundController::class);
     Route::resource('tracking', TrackingDeviceController::class);
+    Route::post('device/sos/{id}', [DeviceController::class, 'sos'])->name('device.sos');
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
 Route::get('notif', function () {
